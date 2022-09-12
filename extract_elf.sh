@@ -17,14 +17,14 @@ function extract_elf(){
     find /mnt/raw_firmwares/output -name "*.bin" -print0 | while read -d $'\0' file
     do
         dir=$(dirname ${file})
-        newfilename=$(dirname ${file} | sed "s/\/mnt\/raw_firmwares\/output\//_/g" | tr / _)
-	newfilepath=${dir}/${newfilename}.bin
-	if [[ ! -f ${dir}/${newfilename}.bin ]];then
-            mv ${file} ${newfilepath}
-	fi
-	echo $(ls ${newfilepath})
+        #newfilename=$(dirname ${file} | sed "s/\/mnt\/raw_firmwares\/output\//_/g" | tr / _)
+	#newfilepath=${dir}/${newfilename}.bin
+	#if [[ ! -f ${dir}/${newfilename}.bin ]];then
+        #    mv ${file} ${newfilepath}
+	#fi
+	#echo $(ls ${newfilepath})
 	
-	file=${newfilepath}
+	#file=${newfilepath}
         extraction=$(/root/firmware-mod-kit/src/binwalk-2.1.1/src/scripts/binwalk -eM ${file} -C ${dir})
 	cd ${dir}*.extracted
 
