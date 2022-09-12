@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function unzip_file(){
-    find /mnt/windows/output -name "*.zip" -print0 | while read -d $'\0' zipfile
+    find /mnt/raw_firmwares/output -name "*.zip" -print0 | while read -d $'\0' zipfile
     do
 	unzipped_filename=`echo ${zipfile} | tr -d .zip`
 	unzipped_dir=`dirname ${zipfile}`
@@ -14,10 +14,10 @@ function unzip_file(){
 }
 
 function extract_elf(){
-    find /mnt/windows/output -name "*.bin" -print0 | while read -d $'\0' file
+    find /mnt/raw_firmwares/output -name "*.bin" -print0 | while read -d $'\0' file
     do
         dir=`dirname ${file}`
-        newfilename=`dirname ${file} | sed "s/\/mnt\/windows\/output\//_/g" | tr / _`
+        newfilename=`dirname ${file} | sed "s/\/mnt\/raw_firmwares\/output\//_/g" | tr / _`
 	newfilepath=${dir}/${newfilename}.bin
 	if [[ ! -f ${dir}/${newfilename}.bin ]];then
             mv ${file} ${newfilepath}
@@ -25,7 +25,7 @@ function extract_elf(){
 	echo `ls ${newfilepath}`
 	
 	file=${newfilepath}
-        extraction=`/root/Documents/firmware-mod-kit/src/binwalk-2.1.1/src/scripts/binwalk -eM ${file} -C ${dir}
+        extraction=`/root/firmware-mod-kit/src/binwalk-2.1.1/src/scripts/binwalk -eM ${file} -C ${dir}
 	cd ${dir}*.extracted
 
 	file . | while read -d $'\0' elf
@@ -48,8 +48,8 @@ fi
 #unzip_file
 extract_elf
 today=`date +%F`
-if [[ ! -F /mnt/windows/analysis/${today} ]];then
-     mkdir /mnt/windows/analysis/${today}
-     cp import*.list /mnt/windows/analysis/${today}
+if [[ ! -F /mnt/raw_firmwares/analysis/${today} ]];then
+     mkdir /mnt/raw_firmwares/analysis/${today}
+     cp import*.list /mnt/raw_firmwares/analysis/${today}
 fi
-cp import*.list /mnt/windows/analysis/
+cp import*.list /mnt/raw_firmwares/analysis/
