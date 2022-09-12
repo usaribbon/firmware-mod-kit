@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function unzip_file(){
-    find /mnt/raw_firmwares/output -name "*.zip" -print0 | while read -d $'\0' zipfile
+    find /mnt/raw_firmwares/raw -name "*.zip" -print0 | while read -d $'\0' zipfile
     do
 	unzipped_filename=$(echo ${zipfile} | tr -d .zip)
 	unzipped_dir=$(dirname ${zipfile})
@@ -14,7 +14,7 @@ function unzip_file(){
 }
 
 function extract_elf(){
-    find /mnt/raw_firmwares/output -name "*.bin" -print0 | while read -d $'\0' file
+    find /mnt/raw_firmwares/raw -name "*.bin" -print0 | while read -d $'\0' file
     do
         dir=$(dirname ${file})
         #newfilename=$(dirname ${file} | sed "s/\/mnt\/raw_firmwares\/output\//_/g" | tr / _)
