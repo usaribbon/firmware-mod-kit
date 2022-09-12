@@ -3,8 +3,8 @@
 function unzip_file(){
     find /mnt/raw_firmwares/output -name "*.zip" -print0 | while read -d $'\0' zipfile
     do
-	unzipped_filename=`echo ${zipfile} | tr -d .zip`
-	unzipped_dir=`dirname ${zipfile}`
+	unzipped_filename=$(echo ${zipfile} | tr -d .zip)
+	unzipped_dir=$(dirname ${zipfile})
         if [[ ! -f ${unzipped_filename} ]];then
             echo "unzipping... ${zipfile}"
             unzip -n ${zipfile} -d ${unzipped_dir}
@@ -16,21 +16,21 @@ function unzip_file(){
 function extract_elf(){
     find /mnt/raw_firmwares/output -name "*.bin" -print0 | while read -d $'\0' file
     do
-        dir=`dirname ${file}`
+        dir=$(dirname ${file})
         newfilename=`dirname ${file} | sed "s/\/mnt\/raw_firmwares\/output\//_/g" | tr / _`
 	newfilepath=${dir}/${newfilename}.bin
 	if [[ ! -f ${dir}/${newfilename}.bin ]];then
             mv ${file} ${newfilepath}
 	fi
-	echo `ls ${newfilepath}`
+	echo $(ls ${newfilepath})
 	
 	file=${newfilepath}
-        extraction=`/root/firmware-mod-kit/src/binwalk-2.1.1/src/scripts/binwalk -eM ${file} -C ${dir}
+        extraction=$(/root/firmware-mod-kit/src/binwalk-2.1.1/src/scripts/binwalk -eM ${file} -C ${dir})
 	cd ${dir}*.extracted
 
 	file . | while read -d $'\0' elf
         do
-            filetype=`file ${elf}`
+            filetype=$(file ${elf})
             if [[ ${filetype} =~ "ELF" ]]; then
                 echo ${file} >> ${elf_output}
 	    fi
