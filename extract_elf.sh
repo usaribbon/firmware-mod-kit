@@ -26,7 +26,7 @@ function extract_elf(){
 	
 	#file=${newfilepath}
         extraction=$(/root/firmware-mod-kit/src/binwalk-2.1.1/src/scripts/binwalk -eM ${file} -C /mnt/raw_firmwares/extracted)
-	cd /mnt/raw_firmwares/extracted/${file}.extracted
+	cd /mnt/raw_firmwares/extracted/_${file}.extracted
 
     elf_output=/mnt/raw_firmwares/elf/elf_${file}.list
 	file . | while read -d $'\0' elf
