@@ -1,0 +1,19 @@
+#!/bin/bash
+
+output="import_firmware_ghidra.list"
+abort_output="import_firmware_ghidra_abort.list"
+
+find /mnt/windows/output -name "*.bin" -print0 | while read -d $'\0' file
+do
+    arch=$(file ${file})
+    echo "${arch}"
+    if [[ $arch =~ "ELF" ]]; then
+        echo ${file} >> ${output}
+    elif [[ $arch =~ "ARM"  ]]; then
+        echo ${file} >> ${output}
+    elif [[ $arch =~ "MIPS"  ]]; then
+        echo ${file} >> ${output}
+    else
+        echo "${arch}" >> ${abourt_output}
+    fi
+done
