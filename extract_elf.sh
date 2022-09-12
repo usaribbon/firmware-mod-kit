@@ -25,9 +25,10 @@ function extract_elf(){
 	#echo $(ls ${newfilepath})
 	
 	#file=${newfilepath}
-        extraction=$(/root/firmware-mod-kit/src/binwalk-2.1.1/src/scripts/binwalk -eM ${file} -C ${dir})
-	cd ${dir}*.extracted
+        extraction=$(/root/firmware-mod-kit/src/binwalk-2.1.1/src/scripts/binwalk -eM ${file} -C /mnt/raw_firmwares/extracted)
+	cd /mnt/raw_firmwares/extracted/${file}.extracted
 
+    elf_output=/mnt/raw_firmwares/elf/elf_${file}.list
 	file . | while read -d $'\0' elf
         do
             filetype=$(file ${elf})
@@ -38,7 +39,6 @@ function extract_elf(){
    done
 }
 
-elf_output="import_elf_firmware_ghidra.list"
 
 if [[ -f ${elf_output} ]];then
     rm ${elf_output}
@@ -47,9 +47,3 @@ fi
 #binwalkで分解したbinのファイルシステムからELFファイルを取り出す
 #unzip_file
 extract_elf
-today=$(date +%F)
-if [[ ! -F /mnt/raw_firmwares/analysis/${today} ]];then
-     mkdir /mnt/raw_firmwares/analysis/${today}
-     cp import*.list /mnt/raw_firmwares/analysis/${today}
-fi
-cp import*.list /mnt/raw_firmwares/analysis/
