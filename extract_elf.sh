@@ -17,7 +17,7 @@ function extract_elf(){
     find /mnt/raw_firmwares/output -name "*.bin" -print0 | while read -d $'\0' file
     do
         dir=$(dirname ${file})
-        newfilename=`dirname ${file} | sed "s/\/mnt\/raw_firmwares\/output\//_/g" | tr / _`
+        newfilename=$(dirname ${file} | sed "s/\/mnt\/raw_firmwares\/output\//_/g" | tr / _)
 	newfilepath=${dir}/${newfilename}.bin
 	if [[ ! -f ${dir}/${newfilename}.bin ]];then
             mv ${file} ${newfilepath}
