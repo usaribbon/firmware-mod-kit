@@ -18,23 +18,21 @@ function extract_elf(){
     do
         dir=$(dirname ${file})
         #newfilename=$(dirname ${file} | sed "s/\/mnt\/raw_firmwares\/output\//_/g" | tr / _)
-	#newfilepath=${dir}/${newfilename}.bin
-	#if [[ ! -f ${dir}/${newfilename}.bin ]];then
-        #    mv ${file} ${newfilepath}
-	#fi
-	#echo $(ls ${newfilepath})
-	
-	#file=${newfilepath}
+    	#newfilepath=${dir}/${newfilename}.bin
+    	#if [[ ! -f ${dir}/${newfilename}.bin ]];then
+            #    mv ${file} ${newfilepath}
+    	#fi
+    	#echo $(ls ${newfilepath})
+    	
+    	#file=${newfilepath}
         filename=$(basename ${file})
         extraction=$(/root/firmware-mod-kit/src/binwalk-2.1.1/src/scripts/binwalk -eM ${file} -C /mnt/raw_firmwares/extracted)
-	cd /mnt/raw_firmwares/extracted/_${filename}.extracted
-
-    elf_output=/mnt/raw_firmwares/elf/elf_${filename}.list
-	file . | while read -d $'\0' elf
+        elf_output=/mnt/raw_firmwares/elf/elf_${filename}.list
+    	find /mnt/raw_firmwares/extracted/_${filename}.extracted -type f -print0 | while read -d $'\0' elf
         do
             filetype=$(file ${elf})
             if [[ ${filetype} =~ "ELF" ]]; then
-                echo ${file} >> ${elf_output}
+                echo ${elf} >> ${elf_output}
 	    fi
         done
    done
