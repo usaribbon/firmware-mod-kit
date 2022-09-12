@@ -40,10 +40,6 @@ function extract_elf(){
 }
 
 
-if [[ -f ${elf_output} ]];then
-    rm ${elf_output}
-fi
-
 #binwalkで分解したbinのファイルシステムからELFファイルを取り出す
 #unzip_file
 extract_elf
