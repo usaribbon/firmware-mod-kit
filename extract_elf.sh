@@ -47,7 +47,7 @@ fi
 #binwalkで分解したbinのファイルシステムからELFファイルを取り出す
 #unzip_file
 extract_elf
-today=`date +%F`
+today=$(date +%F)
 if [[ ! -F /mnt/raw_firmwares/analysis/${today} ]];then
      mkdir /mnt/raw_firmwares/analysis/${today}
      cp import*.list /mnt/raw_firmwares/analysis/${today}
