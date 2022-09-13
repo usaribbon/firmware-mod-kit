@@ -5,7 +5,7 @@ ghidraDir=/mnt/raw_firmwares/ghidraprj/
 
 find ${elfDir} -type f -print0 | while read -d $'\0' elflist
 do
-	prjName=$(basename ${elflist} .list)
+	prjName=$(basename ${elflist} .bin.list)
 	echo ${prjName}
 	echo ${ghidraDir}${prjName}'.rep'
 	if [[ -f ${ghidraDir}${prjName}'.rep' ]]; then
