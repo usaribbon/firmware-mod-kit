@@ -14,7 +14,7 @@ do
 		while read -r elfline;
 		do
 			echo ${elfline}
-		   /root/firmusa/ghidra_10.1.5_PUBLIC/support/analyzeHeadless ${ghidraDir} ${prjName} -import 
+		   /root/firmusa/ghidra_10.1.5_PUBLIC/support/analyzeHeadless ${ghidraDir} ${prjName} -import ${elfline}
 		done < ${elflist}
 		
 	fi
